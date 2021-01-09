@@ -1,0 +1,28 @@
+#NOTE: You can comment out any unused fields with "#"
+#####################################################
+#FIELDS FROM BIOSAMPLE FILE
+fastq_path           : ./example_files/fastq
+popmap               : ./example_files/example.popmap
+specmap              : ./example_files/example.specmap
+tissue_type          : "fin clip"
+#If sex data exists, otherwise all samples will be "not collected"
+#sexmap               : 
+
+#If not using specmap, you can specify a single 
+#organism for all samples:
+#organism            : "Gila robusta"
+
+#####################################################
+#FIELDS FROM SRA METADATA FILE
+title                : "Example RADseq project"
+library_strategy     : "WGS"
+library_source       : "GENOMIC"
+library_selection    : "Restriction Digest"
+platform             : "ILLUMINA"
+instrument_model     : "Illumina HiSeq 4000"
+design_description   : "Library preparation followed ddRAD protocol by Peterson et al (2012)"
+
+#If samples are grouped into libraries:
+#otherwise, all samples will be treated as separate libraries
+libmap               : ./example_files/example.libmap
+

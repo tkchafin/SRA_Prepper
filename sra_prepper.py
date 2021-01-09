@@ -3,6 +3,7 @@
 import sys
 import os
 import getopt
+import pandas as pd
 
 def main():
 	params = parseArgs()
@@ -14,17 +15,14 @@ class parseArgs():
 	def __init__(self):
 		#Define options
 		try:
-			options, remainder = getopt.getopt(sys.argv[1:], 'h1:M:w:o:', \
-			["help", "one2many=","many2one=","width=","out="])
+			options, remainder = getopt.getopt(sys.argv[1:], 'hp:', \
+			["help", "params="])
 		except getopt.GetoptError as err:
 			print(err)
 			self.display_help("\nExiting because getopt returned non-zero exit status.")
 		#Default values for params
 		#Input params
-		self.one2many=None
-		self.many2one=None
-		self.width=60
-		self.out="out.fas"
+		self.paramfile=None
 
 
 		#First pass to see if help menu was called
@@ -40,20 +38,14 @@ class parseArgs():
 			#print(opt,arg)
 			if opt == "h" or opt == "help":
 				continue
-			elif opt=="one2many" or opt=="1":
-				self.one2many=arg
-			elif opt=="many2one" or opt=="M":
-				self.many2one=arg
-			elif opt=="width" or opt=="w":
-				self.width=int(arg)
-			elif opt=="out" or opt=="o":
-				self.out=arg
+			elif opt=="p" or opt=="params":
+				self.paramfile=arg
 			else:
 				assert False, "Unhandled option %r"%opt
 
 		#Check manditory options are set
-		if not self.one2many and not self.many2one:
-			self.display_help("No files provided.")
+		if not self.paramfile:
+			self.display_help("No param file provided.")
 
 
 
@@ -63,13 +55,10 @@ class parseArgs():
 			print (message)
 		print ("\nfastaFormatter.py\n")
 		print("Author: Tyler K Chafin, University of Arkansas")
-		print ("Contact: tkchafin@uark.edu")
-		print ("Description:Right now just converts b/n multi-line and one-line fasta formats, might add later")
+		print ("Contact: tylerkchafin@gmail.com")
+		print ("Description: Preps files from projects with large numbers of samples for SRA upload")
 		print("""
-		-1,--one2many	: Path to fasta file to multi-line format
-		-M,--many2one	: Path to fasta file to convert to one-line format
-		-w,--width	: Characters per line for multi-line (default: 60)
-		-o,--out	: Output file name (default=out.fas)
+		-p, --params:	Path to params file (see example)
 """)
 		print()
 		sys.exit()
